@@ -5,7 +5,7 @@ import * as Calendar from 'expo-calendar';
 import * as Permissions from 'expo-permissions';
 
 
-export default function LinksScreen() {
+export default class LinksScreen extends React.Component{
   componentDidMount = async () => {
     const { status } = await Permissions.askAsync(Permissions.CALENDAR);
     if (status === 'granted') {
@@ -13,12 +13,13 @@ export default function LinksScreen() {
         console.log({calendars})
     }
   };
-
-  return (
-    <ScrollView style={styles.container}>
-      
-    </ScrollView>
-    );
+  render(){
+    return (
+      <ScrollView style={styles.container}>
+        
+      </ScrollView>
+      );
+    }
 }
 
 LinksScreen.navigationOptions = {
