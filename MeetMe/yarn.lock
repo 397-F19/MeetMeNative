@@ -2542,6 +2542,11 @@ expo-asset@^7.0.0, expo-asset@~7.0.0:
     path-browserify "^1.0.0"
     url-parse "^1.4.4"
 
+expo-calendar@~7.0.0:
+  version "7.0.0"
+  resolved "https://registry.yarnpkg.com/expo-calendar/-/expo-calendar-7.0.0.tgz#6155c94b38dcd340ff09ea0ef1337442b3439a82"
+  integrity sha512-1lufM24VJpJZs1PIdduR1YGxY1Fn/LxyQKWOc6gSJ/tGXh2dctBQHecRsxPqpUNjj9HD2uyOidCWjQ6Huz7G8Q==
+
 expo-constants@^7.0.0, expo-constants@~7.0.0:
   version "7.0.1"
   resolved "https://registry.yarnpkg.com/expo-constants/-/expo-constants-7.0.1.tgz#87be02b6dae5c44a3246537452a0d77af15d46bf"
@@ -6151,6 +6156,13 @@ sax@~1.1.1:
   version "1.1.6"
   resolved "https://registry.yarnpkg.com/sax/-/sax-1.1.6.tgz#5d616be8a5e607d54e114afae55b7eaf2fcc3240"
   integrity sha1-XWFr6KXmB9VOEUr65Vt+ry/MMkA=
+
+schedule@^0.4.0:
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/schedule/-/schedule-0.4.0.tgz#fa20cfd0bfbf91c47d02272fd7096780d3170bbb"
+  integrity sha512-hYjmoaEMojiMkWCxKr6ue+LYcZ29u29+AamWYmzwT2VOO9ws5UJp/wNhsVUPiUeNh+EdRfZm7nDeB40ffTfMhA==
+  dependencies:
+    object-assign "^4.1.1"
 
 scheduler@^0.13.3, scheduler@^0.13.6:
   version "0.13.6"
