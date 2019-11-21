@@ -3,7 +3,7 @@ import { Platform } from 'react-native';
 import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
 
 import TabBarIcon from '../components/TabBarIcon';
-import HomeScreen from '../screens/HomeScreen';
+import ProfileScreen from '../screens/ProfileScreen';
 import LinksScreen from '../screens/LinksScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 
@@ -12,14 +12,14 @@ const config = Platform.select({
   default: {},
 });
 
-const HomeStack = createStackNavigator(
+const ProfileStack = createStackNavigator(
   {
-    Home: HomeScreen,
+    Profile: ProfileScreen,
   },
   config
 );
 
-HomeStack.navigationOptions = {
+ProfileStack.navigationOptions = {
   tabBarLabel: 'Profile',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
@@ -28,7 +28,7 @@ HomeStack.navigationOptions = {
   ),
 };
 
-HomeStack.path = '';
+ProfileStack.path = '';
 
 const LinksStack = createStackNavigator(
   {
@@ -63,7 +63,7 @@ SettingsStack.navigationOptions = {
 SettingsStack.path = '';
 
 const tabNavigator = createBottomTabNavigator({
-  HomeStack,
+  ProfileStack,
   LinksStack,
   SettingsStack,
 });
