@@ -32,19 +32,7 @@ export default class LinksScreen extends React.Component {
           renderItem={this.renderItem.bind(this)}
           renderEmptyDate={this.renderEmptyDate.bind(this)}
           rowHasChanged={this.rowHasChanged.bind(this)}
-        // markingType={'period'}
-        // markedDates={{
-        //    '2017-05-08': {textColor: '#666'},
-        //    '2017-05-09': {textColor: '#666'},
-        //    '2017-05-14': {startingDay: true, endingDay: true, color: 'blue'},
-        //    '2017-05-21': {startingDay: true, color: 'blue'},
-        //    '2017-05-22': {endingDay: true, color: 'gray'},
-        //    '2017-05-24': {startingDay: true, color: 'gray'},
-        //    '2017-05-25': {color: 'gray'},
-        //    '2017-05-26': {endingDay: true, color: 'gray'}}}
-        // monthFormat={'yyyy'}
-        // theme={{calendarBackground: 'red', agendaKnobColor: 'green'}}
-        //renderDay={(day, item) => (<Text>{day ? day.day: 'item'}</Text>)}
+       
         />
       </View>
     );
@@ -120,9 +108,9 @@ function addEvent(){
   //Launch modal.
   //fill in Title, Date, People, Description, Location, Start Time, End Time in modal and return an item with these. 
   item = createEvent()
-  this.setState({
-    items: item
-  });
+  // this.setState({
+  //   items: item
+  // });
 }
 
 function createEvent(){}
@@ -240,3 +228,18 @@ const styles = StyleSheet.create({
     paddingTop: 30
   }
 });
+//useful extra def for agenda
+        // markingType={'period'}
+        // markedDates={{
+        //    '2017-05-08': {textColor: '#666'},
+        //    '2017-05-09': {textColor: '#666'},
+        //    '2017-05-14': {startingDay: true, endingDay: true, color: 'blue'},
+        //    '2017-05-21': {startingDay: true, color: 'blue'},
+        //    '2017-05-22': {endingDay: true, color: 'gray'},
+        //    '2017-05-24': {startingDay: true, color: 'gray'},
+        //    '2017-05-25': {color: 'gray'},
+        //    '2017-05-26': {endingDay: true, color: 'gray'}}}
+        // monthFormat={'yyyy'}
+        // theme={{calendarBackground: 'red', agendaKnobColor: 'green'}}
+        //renderDay={(day, item) => (<Text>{day ? day.day: 'item'}</Text>)}
+        
