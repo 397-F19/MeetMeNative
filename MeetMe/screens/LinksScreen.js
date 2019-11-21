@@ -8,22 +8,74 @@ import {
   Text,
   Button,
   View,
-  Alert
+  Alert, 
+  Modal, 
+  TouchableHighlight
 } from 'react-native';
+import t from 'tcomb-form-native';
 import {Agenda} from 'react-native-calendars';
 
-import { MonoText } from '../components/StyledText';
+const Form = t.form.Form;
+
+const event = t.struct({
+  title: t.String,
+  date: t.String,
+  description: t.String, 
+  location: t.String, 
+  startTime: t.String, 
+  endTime: t.String,
+});
 
 export default class LinksScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      items: {}
+      items: {}, 
+      modalVisible: false,
     };
   }
+  setModalVisible(visible) {
+    this.setState({ modalVisible: visible });
+  }
   render(){
+    var options = {
+      auto: 'placeholders', 
+      fields: {
+        title: {
+          label: 'Title', placeholder: 'Title of your event' // <= label for the name field
+        },
+        date: {
+          label: 'Date', placeholder: 'Date of your event' // <= label for the name field
+        },
+        description: {
+          label: 'Description', placeholder: 'Describe your event for your friends' // <= label for the name field
+        },
+        location: {
+          label: 'Location', placeholder: 'Where is your event taking place?' // <= label for the name field
+        },
+        startTime: {
+          label: 'Start Time', placeholder: 'What time does your event start?' // <= label for the name field
+        },
+        endTime: {
+          label: 'End Time', placeholder: 'What time does your event end?' // <= label for the name field
+        },
+      }
+    };
     return (
       <View style={styles.container}>
+        <Modal
+          animationType="slide"
+          transparent={false}
+          visible={this.state.modalVisible}>
+          <View style={{ marginTop: 22, backgroundColor: 'gray' }}>
+            <View>
+              <Form type={event} options={options}/> 
+              <Button
+                title="Create my event"
+                onPress={() => this.setModalVisible(!this.state.modalVisible)}/>
+            </View>
+          </View>
+        </Modal>
         <Agenda
           items={this.state.items}
           loadItemsForMonth={this.loadItems.bind(this)}
@@ -34,8 +86,8 @@ export default class LinksScreen extends React.Component {
         />
         <Button
           title="Create Event"
-          onPress={() => Alert.alert('Now you can create an event, with a friend, who totally doesnt want to see you!')}
-        />
+          onPress={() => this.startCreateEvent()}
+/>
       </View>
     );
   }
@@ -77,6 +129,10 @@ export default class LinksScreen extends React.Component {
   timeToString(time) {
     const date = new Date(time);
     return date.toISOString().split('T')[0];
+  }
+  startCreateEvent()
+  {
+    this.setModalVisible(!this.state.modalVisible);
   }
 }
 
