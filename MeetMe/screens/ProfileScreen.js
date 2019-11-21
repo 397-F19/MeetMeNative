@@ -23,9 +23,12 @@ export default class ProfileScreen extends React.Component {
 
   render(){
     return (
-      <View style={styles.container}>
-        <Text>Lol</Text>
-      </View>
+      <ScrollView>
+        <Text>1</Text>
+        <Text>2</Text>
+        <Text>3</Text>
+        <Text>4</Text>
+      </ScrollView>
     );
   }
 }
