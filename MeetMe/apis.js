@@ -183,3 +183,60 @@ export async function createEvent(firebase, data) {
 		return false;
 	}
 }
+
+export async function grabEvents(firebase, uid) {
+	const db = firebase.database();
+
+	let returnList = [];
+
+	const eventsRef = db.ref(`/data/events`);
+	let eventsSnapshot = await eventsRef.once('value');
+	var eventsData = eventsSnapshot.val();
+	let response = [];
+	for (let key in eventsData) {
+		let keyObj = { id: key };
+		let obj = Object.assign(keyObj, eventsData[key]);
+		response.push(obj);
+	}
+	response.forEach(async item => {
+		if (item.owner === uid) {
+			await returnList.push(item);
+		}
+	});
+	return returnList;
+}
+
+export async function deleteEvent(firebase, id) {
+	const db = firebase.database();
+
+	try {
+		let path = '/data/events/' + id;
+		const eventRef = db.ref(path);
+		let eventSnapshot = await eventRef.once('value');
+		if (eventSnapshot.exists()) {
+			await eventRef
+				.remove()
+				.then(function() {
+					console.log('Remove successfully.');
+				})
+				.catch(function(error) {
+					console.log('Remove failed: ' + error.message);
+				});
+		} else {
+			return '404';
+		}
+	} catch (e) {
+		console.log(e);
+	}
+}
+
+function makeid() {
+	var text = '';
+	var possible =
+		'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+
+	for (var i = 0; i < 7; i++)
+		text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+	return text;
+}
