@@ -19,6 +19,8 @@ export default class LinksScreen extends React.Component {
     super(props);
     this.state = {
       items: {}
+      //  key : timestamp
+      //  value: array of
     };
   }
   render(){
