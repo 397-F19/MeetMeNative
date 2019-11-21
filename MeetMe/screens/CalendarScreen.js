@@ -26,7 +26,7 @@ const event = t.struct({
   endTime: t.String,
 });
 
-export default class LinksScreen extends React.Component {
+export default class CalendarScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -136,7 +136,7 @@ export default class LinksScreen extends React.Component {
   }
 }
 
-LinksScreen.navigationOptions = {
+CalendarScreen.navigationOptions = {
   title: 'Links',
 };
 
