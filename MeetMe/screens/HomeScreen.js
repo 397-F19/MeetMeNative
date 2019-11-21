@@ -18,6 +18,8 @@ export default class HomeScreen extends React.Component {
     super(props);
     this.state = {
       items: {}
+    //  key : timestamp
+    //  value: array of
     };
   }
   render(){
