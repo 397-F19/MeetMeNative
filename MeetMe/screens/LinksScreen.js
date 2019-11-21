@@ -46,14 +46,6 @@ export default class LinksScreen extends React.Component {
         // theme={{calendarBackground: 'red', agendaKnobColor: 'green'}}
         //renderDay={(day, item) => (<Text>{day ? day.day: 'item'}</Text>)}
         />
-        <View style={styles.tabBarInfoContainer}>
-          <View
-            style={[styles.codeHighlightContainer, styles.navigationFilename]}>
-            <MonoText style={styles.codeHighlightText}>
-              navigation/MainTabNavigator.js
-            </MonoText>
-          </View>
-        </View>
       </View>
     );
   }
@@ -127,7 +119,7 @@ function DevelopmentModeNotice() {
 function addEvent(){
   //Launch modal.
   //fill in Title, Date, People, Description, Location, Start Time, End Time in modal and return an item with these. 
-  item = createEvent
+  item = createEvent()
   this.setState({
     items: item
   });
