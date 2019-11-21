@@ -3,13 +3,12 @@
 import * as WebBrowser from 'expo-web-browser';
 import React from 'react';
 import {
-  Image,
   Platform,
-  ScrollView,
   StyleSheet,
   Text,
-  TouchableOpacity,
+  Button,
   View,
+  Alert
 } from 'react-native';
 import {Agenda} from 'react-native-calendars';
 
@@ -32,7 +31,10 @@ export default class LinksScreen extends React.Component {
           renderItem={this.renderItem.bind(this)}
           renderEmptyDate={this.renderEmptyDate.bind(this)}
           rowHasChanged={this.rowHasChanged.bind(this)}
-       
+        />
+        <Button
+          title="Create Event"
+          onPress={() => Alert.alert('Now you can create an event, with a friend, who totally doesnt want to see you!')}
         />
       </View>
     );
