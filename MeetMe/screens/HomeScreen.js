@@ -14,6 +14,13 @@ import {Agenda} from 'react-native-calendars';
 import { MonoText } from '../components/StyledText';
 
 export default class HomeScreen extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      items: {}
+    };
+  }
+
   render(){
     return (
       <View style={styles.container}>
