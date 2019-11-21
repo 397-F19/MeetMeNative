@@ -101,3 +101,85 @@ export async function createUser(firebase, data) {
 	localStorage.setItem('friendsList', friendsListString);
 	return res;
 }
+
+export async function addFriend(firebase, data) {
+	const db = firebase.database();
+
+	const { email, uid } = data;
+
+	// find person with that exact email account
+	const usersRef = db.ref(`/data/users`);
+	let usersSnapshot = await usersRef.once('value');
+	let usersData = usersSnapshot.val();
+	let isExisted = false;
+	let response = {};
+	for (let key in usersData) {
+		if (usersData[key].email === email) {
+			console.log(key);
+			const friendsRef = db.ref(`/data/users/${uid}/friends`);
+			let friendsSnapshot = await friendsRef.once('value');
+			let friendsList = friendsSnapshot.val();
+			await Object.values(friendsList).forEach(item => {
+				if (item.email === email) {
+					alert('You friend is existed in your list!');
+					isExisted = true;
+				}
+			});
+			if (!isExisted) {
+				let friendObject = {
+					uid: key,
+					avatar: usersData[key].avatar,
+					email: usersData[key].email,
+					name: usersData[key].name
+				};
+				friendsList.push(friendObject);
+				await friendsRef.update(friendsList);
+				response = { res: 'success', data: friendObject };
+			}
+		}
+	}
+
+	if (response.res === 'success') {
+		alert('You have successfully added your friend!');
+		let friendsList = JSON.parse(localStorage.getItem('friendsList'));
+		friendsList.push(response.data);
+		localStorage.setItem('friendsList', JSON.stringify(friendsList));
+	} else {
+		alert('You friend has not registered!');
+	}
+}
+
+export async function createEvent(firebase, data) {
+	const db = firebase.database();
+
+	const {
+		title,
+		description,
+		location,
+		owner,
+		start_time,
+		end_time,
+		attendees,
+		attendeeUID
+	} = data;
+	let eventID = makeid();
+	const eventsRef = db.ref('/data/events');
+	let eventsData = {
+		[eventID]: {
+			title,
+			description,
+			location,
+			owner,
+			start_time,
+			end_time,
+			attendees,
+			attendeeUID
+		}
+	};
+	try {
+		await eventsRef.update(eventsData);
+		return true;
+	} catch (e) {
+		return false;
+	}
+}
