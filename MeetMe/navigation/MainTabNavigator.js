@@ -3,8 +3,8 @@ import { Platform } from 'react-native';
 import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
 
 import TabBarIcon from '../components/TabBarIcon';
-import HomeScreen from '../screens/HomeScreen';
-import LinksScreen from '../screens/LinksScreen';
+import ProfileScreen from '../screens/ProfileScreen';
+import CalendarScreen from '../screens/CalendarScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 
 const config = Platform.select({
@@ -12,14 +12,14 @@ const config = Platform.select({
   default: {},
 });
 
-const HomeStack = createStackNavigator(
+const ProfileStack = createStackNavigator(
   {
-    Home: HomeScreen,
+    Profile: ProfileScreen,
   },
   config
 );
 
-HomeStack.navigationOptions = {
+ProfileStack.navigationOptions = {
   tabBarLabel: 'Profile',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
@@ -28,23 +28,23 @@ HomeStack.navigationOptions = {
   ),
 };
 
-HomeStack.path = '';
+ProfileStack.path = '';
 
-const LinksStack = createStackNavigator(
+const CalendarStack = createStackNavigator(
   {
-    Links: LinksScreen,
+    Calendar: CalendarScreen,
   },
   config
 );
 
-LinksStack.navigationOptions = {
+CalendarStack.navigationOptions = {
   tabBarLabel: 'Calendar',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-calendar' : 'md-calendar'} />
   ),
 };
 
-LinksStack.path = '';
+CalendarStack.path = '';
 
 const SettingsStack = createStackNavigator(
   {
@@ -63,8 +63,8 @@ SettingsStack.navigationOptions = {
 SettingsStack.path = '';
 
 const tabNavigator = createBottomTabNavigator({
-  HomeStack,
-  LinksStack,
+  ProfileStack,
+  CalendarStack,
   SettingsStack,
 });
 

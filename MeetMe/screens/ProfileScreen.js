@@ -13,7 +13,7 @@ import {Agenda} from 'react-native-calendars';
 
 import { MonoText } from '../components/StyledText';
 
-export default class HomeScreen extends React.Component {
+export default class ProfileScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -30,7 +30,7 @@ export default class HomeScreen extends React.Component {
   }
 }
 
-HomeScreen.navigationOptions = {
+ProfileScreen.navigationOptions = {
   header: null,
 };
 
