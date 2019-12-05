@@ -9,7 +9,8 @@ import {
   Button,
   View,
   Alert, 
-  Modal, 
+  Modal,
+  ScrollView, 
   TouchableHighlight
 } from 'react-native';
 import t from 'tcomb-form-native';
@@ -18,21 +19,91 @@ import {Agenda} from 'react-native-calendars';
 const Form = t.form.Form;
 
 const event = t.struct({
-  title: t.String,
-  date: t.String,
-  description: t.String, 
-  location: t.String, 
-  startTime: t.String, 
-  endTime: t.String,
+  Title: t.String,
+  Name: t.String,
+  Description: t.String, 
+  Location: t.String, 
+  StartTime: t.String, 
+  EndTime: t.String,
+  Attendees: t.String,
 });
 
 export default class CalendarScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      items: {}, 
+      items: {
+        '2019-12-04': [{
+          name: 'Work ' + 'with ' + 'Aaron \n' 
+          + 'Work work work!! \n' 
+          +  'Mudd Library' + ', '+ '12:00 - 14:00',
+        },
+      ],
+        '2019-11-22': [{
+          name: 'Comp_Sci 396' + ' \n' 
+          +  'Frances' + ', '+ '15:30 - 17:00',
+        }],
+        '2019-11-21': [{
+          name: 'Comp_Sci 397 Work' + '\n' 
+          +  'Tech' + ', '+ '12:00 - 15:00',
+        }], 
+        '2019-11-25': [{
+          name: 'Comp_Sci 397 Work' + '\n' 
+          +  'Tech' + ', '+ '12:00 - 15:00',
+        }], 
+        '2019-11-26': [{
+          name: 'Comp_Sci 396 Assignment' + ' \n' 
+          +  'Frances' + ', '+ 'All Day',
+        }],
+        '2019-11-27': [{
+          name: 'Home for Thanksgiving!' + '\n' 
+          +  'Romeoville' + ', '+ 'All Day',
+        }], 
+        '2019-11-28': [{
+          name: 'Thanksgiving with Grandpa Steve' + ' \n' 
+          +  'Skokie' + ', '+ 'All Day',
+        }],
+        '2019-11-29': [{
+          name: 'Black Friday!!!!' + ' \n' 
+          +  'The Mall' + ', '+ 'All Day',
+        }],
+        '2019-11-30': [{
+          name: 'Home for Thanksgiving!' + ' \n' 
+          +  'Romeoville' + ', '+ 'All Day',
+        }],
+        '2019-12-01': [{
+          name: 'Home for Thanksgiving!' + ' \n' 
+          +  'Romeoville' + ', '+ 'All Day',
+        }],
+        '2019-12-04': [{
+          name: 'Work! with Terry' + ' \n' 
+          +  'Mudd Library' + ', '+ '12:00 - 14:00',
+        }],
+        '2019-11-29': [{
+          name: 'Home for Thanksgiving!' + '\n' 
+          +  'Romeoville' + ', '+ 'All Day',
+        }], 
+        '2019-11-23': [{
+          name: 'Study ' + 'with ' + 'Terry \n' 
+          + '397 Homework \n' 
+          +  'Mudd' + ', '+ '12:00 - 16:00',
+        }]}, 
       modalVisible: false,
     };
+  }
+  handleSubmit = () => {
+    const value = this._form.getValue(); // use that ref to get the form value
+    setTimeout(() => {
+      const newItems = {};
+      Object.keys(this.state.items).forEach(key => { newItems[key] = this.state.items[key]; });
+      newItems[value.Name] = { name: value.Description };
+      console.log(newItems[value.Name]);
+      this.setState({
+        items: newItems
+      });
+    }, 1000); 
+    this.setState({ modalVisible: false });
+    console.log(value);
   }
   setModalVisible(visible) {
     this.setState({ modalVisible: visible });
@@ -41,24 +112,27 @@ export default class CalendarScreen extends React.Component {
     var options = {
       auto: 'placeholders', 
       fields: {
-        title: {
+        Title: {
           label: 'Title', placeholder: 'Title of your event' // <= label for the name field
         },
-        date: {
-          label: 'Date', placeholder: 'Date of your event' // <= label for the name field
+        Name: {
+          label: 'Date', placeholder: 'Date of your event (e.g. 2019-11-29)' // <= label for the name field
         },
-        description: {
+        Description: {
           label: 'Description', placeholder: 'Describe your event for your friends' // <= label for the name field
         },
-        location: {
+        Location: {
           label: 'Location', placeholder: 'Where is your event taking place?' // <= label for the name field
         },
-        startTime: {
+        StartTime: {
           label: 'Start Time', placeholder: 'What time does your event start?' // <= label for the name field
         },
-        endTime: {
+        EndTime: {
           label: 'End Time', placeholder: 'What time does your event end?' // <= label for the name field
         },
+        Attendees: {
+          label: 'Attendees', placeholder: 'Who will be attending the event?' // <= label for the name field
+        }
       }
     };
     return (
@@ -67,13 +141,17 @@ export default class CalendarScreen extends React.Component {
           animationType="slide"
           transparent={false}
           visible={this.state.modalVisible}>
-          <View style={{ marginTop: 22, backgroundColor: 'gray' }}>
-            <View>
-              <Form type={event} options={options}/> 
+          <View style={{ marginTop: 42, marginLeft: 5, backgroundColor: 'white', color: 'black' }}>
+            <ScrollView>
+              <Form 
+                ref={c => this._form = c}
+                value={this.state.value}
+                type={event}
+                options={options}/> 
               <Button
                 title="Create my event"
-                onPress={() => this.setModalVisible(!this.state.modalVisible)}/>
-            </View>
+                onPress={() => this.handleSubmit()}/>
+            </ScrollView>
           </View>
         </Modal>
         <Agenda
@@ -86,8 +164,7 @@ export default class CalendarScreen extends React.Component {
         />
         <Button
           title="Create Event"
-          onPress={() => this.startCreateEvent()}
-/>
+          onPress={() => this.setModalVisible()}/>
       </View>
     );
   }
@@ -100,14 +177,12 @@ export default class CalendarScreen extends React.Component {
           this.state.items[strTime] = []; 
         }
       }
-      //console.log(this.state.items);
       const newItems = {};
       Object.keys(this.state.items).forEach(key => { newItems[key] = this.state.items[key]; });
       this.setState({
         items: newItems
       });
     }, 1000);
-    // console.log(`Load Items for ${day.year}-${day.month}`);
   }
 
   renderItem(item) {
@@ -137,7 +212,7 @@ export default class CalendarScreen extends React.Component {
 }
 
 CalendarScreen.navigationOptions = {
-  title: 'Links',
+  title: 'Calendar',
 };
 
 function DevelopmentModeNotice() {
