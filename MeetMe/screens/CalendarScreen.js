@@ -9,7 +9,8 @@ import {
   Button,
   View,
   Alert, 
-  Modal, 
+  Modal,
+  ScrollView, 
   TouchableHighlight
 } from 'react-native';
 import t from 'tcomb-form-native';
@@ -24,6 +25,7 @@ const event = t.struct({
   Location: t.String, 
   StartTime: t.String, 
   EndTime: t.String,
+  Attendees: t.String,
 });
 
 export default class CalendarScreen extends React.Component {
@@ -31,14 +33,60 @@ export default class CalendarScreen extends React.Component {
     super(props);
     this.state = {
       items: {
-        '2019-11-20': [{
-          name: 'Name of event ' + 'with ' + 'name of atendees \n' 
-          + 'Description of the event \n' 
-          +  'location of event' + ', '+ 'time of event',
+        '2019-12-04': [{
+          name: 'Work ' + 'with ' + 'Aaron \n' 
+          + 'Work work work!! \n' 
+          +  'Mudd Library' + ', '+ '12:00 - 14:00',
         },
       ],
+        '2019-11-22': [{
+          name: 'Comp_Sci 396' + ' \n' 
+          +  'Frances' + ', '+ '15:30 - 17:00',
+        }],
         '2019-11-21': [{
-          name: 'this'
+          name: 'Comp_Sci 397 Work' + '\n' 
+          +  'Tech' + ', '+ '12:00 - 15:00',
+        }], 
+        '2019-11-25': [{
+          name: 'Comp_Sci 397 Work' + '\n' 
+          +  'Tech' + ', '+ '12:00 - 15:00',
+        }], 
+        '2019-11-26': [{
+          name: 'Comp_Sci 396 Assignment' + ' \n' 
+          +  'Frances' + ', '+ 'All Day',
+        }],
+        '2019-11-27': [{
+          name: 'Home for Thanksgiving!' + '\n' 
+          +  'Romeoville' + ', '+ 'All Day',
+        }], 
+        '2019-11-28': [{
+          name: 'Thanksgiving with Grandpa Steve' + ' \n' 
+          +  'Skokie' + ', '+ 'All Day',
+        }],
+        '2019-11-29': [{
+          name: 'Black Friday!!!!' + ' \n' 
+          +  'The Mall' + ', '+ 'All Day',
+        }],
+        '2019-11-30': [{
+          name: 'Home for Thanksgiving!' + ' \n' 
+          +  'Romeoville' + ', '+ 'All Day',
+        }],
+        '2019-12-01': [{
+          name: 'Home for Thanksgiving!' + ' \n' 
+          +  'Romeoville' + ', '+ 'All Day',
+        }],
+        '2019-12-04': [{
+          name: 'Work! with Terry' + ' \n' 
+          +  'Mudd Library' + ', '+ '12:00 - 14:00',
+        }],
+        '2019-11-29': [{
+          name: 'Home for Thanksgiving!' + '\n' 
+          +  'Romeoville' + ', '+ 'All Day',
+        }], 
+        '2019-11-23': [{
+          name: 'Study ' + 'with ' + 'Terry \n' 
+          + '397 Homework \n' 
+          +  'Mudd' + ', '+ '12:00 - 16:00',
         }]}, 
       modalVisible: false,
     };
@@ -68,7 +116,7 @@ export default class CalendarScreen extends React.Component {
           label: 'Title', placeholder: 'Title of your event' // <= label for the name field
         },
         Name: {
-          label: 'Date', placeholder: 'Date of your event' // <= label for the name field
+          label: 'Date', placeholder: 'Date of your event (e.g. 2019-11-29)' // <= label for the name field
         },
         Description: {
           label: 'Description', placeholder: 'Describe your event for your friends' // <= label for the name field
@@ -82,6 +130,9 @@ export default class CalendarScreen extends React.Component {
         EndTime: {
           label: 'End Time', placeholder: 'What time does your event end?' // <= label for the name field
         },
+        Attendees: {
+          label: 'Attendees', placeholder: 'Who will be attending the event?' // <= label for the name field
+        }
       }
     };
     return (
@@ -90,8 +141,8 @@ export default class CalendarScreen extends React.Component {
           animationType="slide"
           transparent={false}
           visible={this.state.modalVisible}>
-          <View style={{ marginTop: 22, backgroundColor: 'gray' }}>
-            <View>
+          <View style={{ marginTop: 42, marginLeft: 5, backgroundColor: 'white', color: 'black' }}>
+            <ScrollView>
               <Form 
                 ref={c => this._form = c}
                 value={this.state.value}
@@ -100,7 +151,7 @@ export default class CalendarScreen extends React.Component {
               <Button
                 title="Create my event"
                 onPress={() => this.handleSubmit()}/>
-            </View>
+            </ScrollView>
           </View>
         </Modal>
         <Agenda
@@ -161,7 +212,7 @@ export default class CalendarScreen extends React.Component {
 }
 
 CalendarScreen.navigationOptions = {
-  title: 'Links',
+  title: 'Calendar',
 };
 
 function DevelopmentModeNotice() {
