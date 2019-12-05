@@ -24,7 +24,7 @@ export default class ProfileScreen extends React.Component {
   render(){
     return (
       <View style={styles.container}>
-        <Text>Lol</Text>
+        <Text>Profile Page Will be here</Text>
       </View>
     );
   }
