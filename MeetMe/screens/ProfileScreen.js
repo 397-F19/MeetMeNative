@@ -3,12 +3,12 @@ import React from 'react';
 import {
   Image,
   Platform,
-  ScrollView,
   StyleSheet,
   Text,
-  TouchableOpacity,
   View,
+  Button,
 } from 'react-native';
+import Constants from 'expo-constants';
 import {Agenda} from 'react-native-calendars';
 
 import { MonoText } from '../components/StyledText';
@@ -24,7 +24,24 @@ export default class ProfileScreen extends React.Component {
   render(){
     return (
       <View style={styles.container}>
-        <Text>Profile Page Will be here</Text>
+        <Image source={require('../assets/images/face.png')} style={styles.profile_pic}>
+        </Image>
+        <Text style={styles.nameText}>
+          Danyil Pysmak
+        </Text>
+        <Text style={styles.group_list_header}>
+          Group List
+        </Text>
+        <Text style={styles.group_list}>
+          Volleyball
+        </Text>
+        <Text style={styles.group_list}>
+          Comp_Sci 397
+        </Text>
+        <Text style={styles.group_list}>
+          Fishing
+        </Text>
+          <Button title="+ Add New Group"/>
       </View>
     );
   }
@@ -73,6 +90,34 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: Constants.statusBarHeight,
+  },
+  separator: {
+    marginVertical: 8,
+    borderBottomColor: '#737373',
+    borderBottomWidth: StyleSheet.hairlineWidth,
+  },
+  group_list_header: {
+    fontSize: 24,
+    marginTop: 70,
+    marginBottom: 25,
+  },
+  group_list: {
+    fontSize: 18,
+    marginBottom: 18,
+  },
+  profile_pic: {
+    backgroundColor: 'gray',
+    height: 200,
+    width: 200,
+    borderRadius: 100,
+    marginBottom: 30,
+  },
+  nameText: {
+    fontSize: 30,
+    color: 'grey',
   },
   developmentModeText: {
     marginBottom: 20,
