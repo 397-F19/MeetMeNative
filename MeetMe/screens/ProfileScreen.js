@@ -24,7 +24,11 @@ export default class ProfileScreen extends React.Component {
   render(){
     return (
       <View style={styles.container}>
-        <View style={styles.profile_pic}></View>
+        <Image source={require('../assets/images/face.png')} style={styles.profile_pic}>
+        </Image>
+        <Text style={styles.nameText}>
+          Danyil Pysmak
+        </Text>
       </View>
     );
   }
@@ -74,15 +78,20 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    marginBottom: '35%',
   },
   profile_pic: {
     backgroundColor: 'gray',
-    height: '10%',
-    width: '10%',
-    marginTop: '10%',
-    marginBottom: '95%',
-    borderRadius: 30,
+    // backgroundImage: url('../assets/IMG_2760.JPG'),
+    height: 200,
+    width: 200,
+    borderRadius: 100,
+    marginBottom: '10%',
+  },
+  nameText: {
+    fontSize: 30,
+    color: 'grey',
   },
   developmentModeText: {
     marginBottom: 20,
