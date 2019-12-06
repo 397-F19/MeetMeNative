@@ -58,6 +58,10 @@ export default class CalendarScreen extends React.Component {
           name: 'Turn in all of your work ' + 'with ' + 'Comp_Sci 397 \n'  
           +  'Class',
         }],
+        '2019-12-11': [{
+          name: 'Turn in Learn, React ' + 'with ' + 'Comp_Sci 397 \n'  
+          +  'Class',
+        }],
         '2019-12-31': [{
           name: 'Safe, supervised fun ' + 'with ' + 'Volleyball \n'  
           +  'Volleyball house',
