@@ -20,12 +20,9 @@ const Form = t.form.Form;
 
 const event = t.struct({
   Title: t.String,
-  Name: t.String,
-  Description: t.String, 
   Location: t.String, 
-  StartTime: t.String, 
-  EndTime: t.String,
-  Attendees: t.String,
+  When: t.Date, 
+  Group: t.String,
 });
 
 export default class CalendarScreen extends React.Component {
@@ -33,60 +30,37 @@ export default class CalendarScreen extends React.Component {
     super(props);
     this.state = {
       items: {
-        '2019-12-04': [{
-          name: 'Work ' + 'with ' + 'Aaron \n' 
-          + 'Work work work!! \n' 
-          +  'Mudd Library' + ', '+ '12:00 - 14:00',
-        },
-      ],
-        '2019-11-22': [{
-          name: 'Comp_Sci 396' + ' \n' 
-          +  'Frances' + ', '+ '15:30 - 17:00',
-        }],
-        '2019-11-21': [{
-          name: 'Comp_Sci 397 Work' + '\n' 
-          +  'Tech' + ', '+ '12:00 - 15:00',
-        }], 
-        '2019-11-25': [{
-          name: 'Comp_Sci 397 Work' + '\n' 
-          +  'Tech' + ', '+ '12:00 - 15:00',
-        }], 
-        '2019-11-26': [{
-          name: 'Comp_Sci 396 Assignment' + ' \n' 
-          +  'Frances' + ', '+ 'All Day',
-        }],
-        '2019-11-27': [{
-          name: 'Home for Thanksgiving!' + '\n' 
-          +  'Romeoville' + ', '+ 'All Day',
-        }], 
-        '2019-11-28': [{
-          name: 'Thanksgiving with Grandpa Steve' + ' \n' 
-          +  'Skokie' + ', '+ 'All Day',
-        }],
-        '2019-11-29': [{
-          name: 'Black Friday!!!!' + ' \n' 
-          +  'The Mall' + ', '+ 'All Day',
-        }],
-        '2019-11-30': [{
-          name: 'Home for Thanksgiving!' + ' \n' 
-          +  'Romeoville' + ', '+ 'All Day',
-        }],
         '2019-12-01': [{
-          name: 'Home for Thanksgiving!' + ' \n' 
-          +  'Romeoville' + ', '+ 'All Day',
+          name: 'Work ' + 'with ' + 'Comp_Sci 397 \n'  
+          +  'Mudd Library',
+        }],
+        '2019-12-02': [{
+          name: 'Practice ' + 'with ' + 'Comp_Sci 397 \n'  
+          +  'The Garage',
+        }],
+        '2019-12-03': [{
+          name: 'Swarm ' + 'with ' + 'Comp_Sci 397 \n'  
+          +  'Tech',
         }],
         '2019-12-04': [{
-          name: 'Work! with Terry' + ' \n' 
-          +  'Mudd Library' + ', '+ '12:00 - 14:00',
+          name: 'Practice ' + 'with ' + 'Volleyball \n'  
+          +  'Mudd Library',
         }],
-        '2019-11-29': [{
-          name: 'Home for Thanksgiving!' + '\n' 
-          +  'Romeoville' + ', '+ 'All Day',
-        }], 
-        '2019-11-23': [{
-          name: 'Study ' + 'with ' + 'Terry \n' 
-          + '397 Homework \n' 
-          +  'Mudd' + ', '+ '12:00 - 16:00',
+        '2019-12-05': [{
+          name: 'Work ' + 'with ' + 'Comp_Sci 397 \n'  
+          +  'Mudd Library',
+        }],
+        '2019-12-06': [{
+          name: 'Practice ' + 'with ' + 'Volleyball \n'  
+          +  'Mudd Library',
+        }],
+        '2019-12-07': [{
+          name: 'Turn in all of your work ' + 'with ' + 'Comp_Sci 397 \n'  
+          +  'Class',
+        }],
+        '2019-12-31': [{
+          name: 'Safe, supervised fun ' + 'with ' + 'Volleyball \n'  
+          +  'Volleyball house',
         }]}, 
       modalVisible: false,
     };
@@ -102,36 +76,27 @@ export default class CalendarScreen extends React.Component {
         items: newItems
       });
     }, 1000); 
-    this.setState({ modalVisible: false });
+    this.setState({ modalVisible: false});
     console.log(value);
   }
   setModalVisible(visible) {
-    this.setState({ modalVisible: visible });
+    this.setState({ modalVisible: visible});
   }
   render(){
     var options = {
       auto: 'placeholders', 
       fields: {
         Title: {
-          label: 'Title', placeholder: 'Title of your event' // <= label for the name field
-        },
-        Name: {
-          label: 'Date', placeholder: 'Date of your event (e.g. 2019-11-29)' // <= label for the name field
-        },
-        Description: {
-          label: 'Description', placeholder: 'Describe your event for your friends' // <= label for the name field
+          label: 'Title', placeholder: 'Title of your event' 
         },
         Location: {
-          label: 'Location', placeholder: 'Where is your event taking place?' // <= label for the name field
+          label: 'Location', placeholder: 'Where is your event taking place?' 
         },
-        StartTime: {
-          label: 'Start Time', placeholder: 'What time does your event start?' // <= label for the name field
+        When: {
+          label: 'When', placeholder: 'When is your event?', mode:'date'
         },
-        EndTime: {
-          label: 'End Time', placeholder: 'What time does your event end?' // <= label for the name field
-        },
-        Attendees: {
-          label: 'Attendees', placeholder: 'Who will be attending the event?' // <= label for the name field
+        Group: {
+          label: 'Groups', placeholder: 'Who do you want to invite?'
         }
       }
     };
@@ -139,10 +104,9 @@ export default class CalendarScreen extends React.Component {
       <View style={styles.container}>
         <Modal
           animationType="slide"
-          transparent={false}
+          transparent={true}
           visible={this.state.modalVisible}>
-          <View style={{ marginTop: 42, marginLeft: 5, backgroundColor: 'white', color: 'black' }}>
-            <ScrollView>
+          <View style={{ marginTop: 42, marginLeft: 8, marginRight: 8, color: 'black' }}>
               <Form 
                 ref={c => this._form = c}
                 value={this.state.value}
@@ -151,20 +115,16 @@ export default class CalendarScreen extends React.Component {
               <Button
                 title="Create my event"
                 onPress={() => this.handleSubmit()}/>
-            </ScrollView>
           </View>
         </Modal>
-        <Agenda
+        <Agenda visible={this.state.calendarVisible}
           items={this.state.items}
           loadItemsForMonth={this.loadItems.bind(this)}
-          selected={'2019-11-20'}
+          selected={'2019-12-01'}
           renderItem={this.renderItem.bind(this)}
           renderEmptyDate={this.renderEmptyDate.bind(this)}
           rowHasChanged={this.rowHasChanged.bind(this)}
         />
-        <Button
-          title="Create Event"
-          onPress={() => this.setModalVisible()}/>
       </View>
     );
   }
@@ -190,17 +150,14 @@ export default class CalendarScreen extends React.Component {
       <View style={[styles.item, { height: item.height }]}><Text>{item.name}</Text></View>
     );
   }
-
   renderEmptyDate() {
     return (
-      <View style={styles.emptyDate}><Text>This is empty date!</Text></View>
+      <View style={styles.emptyDate}><Text>Nothing scheduled today :)</Text></View>
     );
   }
-
   rowHasChanged(r1, r2) {
     return r1.name !== r2.name;
   }
-
   timeToString(time) {
     const date = new Date(time);
     return date.toISOString().split('T')[0];
@@ -215,28 +172,6 @@ CalendarScreen.navigationOptions = {
   title: 'Calendar',
 };
 
-function DevelopmentModeNotice() {
-  if (__DEV__) {
-    const learnMoreButton = (
-      <Text onPress={handleLearnMorePress} style={styles.helpLinkText}>
-        Learn more
-      </Text>
-    );
-
-    return (
-      <Text style={styles.developmentModeText}>
-        Development mode is enabled: your app will be slower but you can use
-        useful development tools. {learnMoreButton}
-      </Text>
-    );
-  } else {
-    return (
-      <Text style={styles.developmentModeText}>
-        You are not in development mode: your app will run at full speed.
-      </Text>
-    );
-  }
-}
 function addEvent(){
   //Launch modal.
   //fill in Title, Date, People, Description, Location, Start Time, End Time in modal and return an item with these. 
@@ -247,18 +182,6 @@ function addEvent(){
 }
 
 function createEvent(){}
-
-function handleLearnMorePress() {
-  WebBrowser.openBrowserAsync(
-    'https://docs.expo.io/versions/latest/workflow/development-mode/'
-  );
-}
-
-function handleHelpPress() {
-  WebBrowser.openBrowserAsync(
-    'https://docs.expo.io/versions/latest/workflow/up-and-running/#cant-see-your-changes'
-  );
-}
 
 const styles = StyleSheet.create({
   container: {
@@ -361,6 +284,40 @@ const styles = StyleSheet.create({
     paddingTop: 30
   }
 });
+
+function DevelopmentModeNotice() {
+  if (__DEV__) {
+    const learnMoreButton = (
+      <Text onPress={handleLearnMorePress} style={styles.helpLinkText}>
+        Learn more
+      </Text>
+    );
+
+    return (
+      <Text style={styles.developmentModeText}>
+        Development mode is enabled: your app will be slower but you can use
+        useful development tools. {learnMoreButton}
+      </Text>
+    );
+  } else {
+    return (
+      <Text style={styles.developmentModeText}>
+        You are not in development mode: your app will run at full speed.
+      </Text>
+    );
+  }
+}
+function handleLearnMorePress() {
+  WebBrowser.openBrowserAsync(
+    'https://docs.expo.io/versions/latest/workflow/development-mode/'
+  );
+}
+
+function handleHelpPress() {
+  WebBrowser.openBrowserAsync(
+    'https://docs.expo.io/versions/latest/workflow/up-and-running/#cant-see-your-changes'
+  );
+}
 //useful extra def for agenda
         // markingType={'period'}
         // markedDates={{
