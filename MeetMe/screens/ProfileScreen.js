@@ -3,12 +3,9 @@ import React from 'react';
 import {
   Image,
   Platform,
-  ScrollView,
   StyleSheet,
   Text,
-  TouchableOpacity,
   View,
-  FlatList,
   Button,
 } from 'react-native';
 import Constants from 'expo-constants';
@@ -27,16 +24,24 @@ export default class ProfileScreen extends React.Component {
   render(){
     return (
       <View style={styles.container}>
-        <View style={styles.pic_container}>
-          <Image source={require('../assets/images/face.png')} style={styles.profile_pic}>
-          </Image>
-          <Text style={styles.nameText}>
-            Danyil Pysmak
-          </Text>
-        </View>
-        <View style={styles.group_list}>
+        <Image source={require('../assets/images/face.png')} style={styles.profile_pic}>
+        </Image>
+        <Text style={styles.nameText}>
+          Danyil Pysmak
+        </Text>
+        <Text style={styles.group_list_header}>
+          Group List
+        </Text>
+        <Text style={styles.group_list}>
+          Volleyball
+        </Text>
+        <Text style={styles.group_list}>
+          Comp_Sci 397
+        </Text>
+        <Text style={styles.group_list}>
+          Fishing
+        </Text>
           <Button title="+ Add New Group"/>
-        </View>
       </View>
     );
   }
@@ -89,11 +94,19 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginTop: Constants.statusBarHeight,
   },
-  pic_container: {
-    // marginBottom: '35%',
+  separator: {
+    marginVertical: 8,
+    borderBottomColor: '#737373',
+    borderBottomWidth: StyleSheet.hairlineWidth,
+  },
+  group_list_header: {
+    fontSize: 24,
+    marginTop: 70,
+    marginBottom: 25,
   },
   group_list: {
-    marginTop: '10%',
+    fontSize: 18,
+    marginBottom: 18,
   },
   profile_pic: {
     backgroundColor: 'gray',
