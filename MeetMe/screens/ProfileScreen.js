@@ -27,16 +27,28 @@ export default class ProfileScreen extends React.Component {
   render(){
     return (
       <View style={styles.container}>
-        <View style={styles.pic_container}>
+        {/*<View style={styles.pic_container}>*/}
           <Image source={require('../assets/images/face.png')} style={styles.profile_pic}>
           </Image>
           <Text style={styles.nameText}>
             Danyil Pysmak
           </Text>
-        </View>
-        <View style={styles.group_list}>
+        {/*</View>*/}
+        {/*<View style={styles.group_list}>*/}
+        <Text style={styles.group_list_header}>
+          Group List
+        </Text>
+        <Text style={styles.group_list}>
+          Volleyball
+        </Text>
+        <Text style={styles.group_list}>
+          Comp_Sci 397
+        </Text>
+        <Text style={styles.group_list}>
+          Fishing
+        </Text>
           <Button title="+ Add New Group"/>
-        </View>
+        {/*</View>*/}
       </View>
     );
   }
@@ -88,12 +100,22 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     marginTop: Constants.statusBarHeight,
+    marginBottom: '20%',
   },
   pic_container: {
     // marginBottom: '35%',
   },
+  group_list_header: {
+    fontSize: 24,
+    textAlign: 'left',
+    alignItems: 'flex-start',
+    justifyContent: 'flex-start',
+    marginTop: 50,
+    marginBottom: 25,
+  },
   group_list: {
-    marginTop: '10%',
+    fontSize: 18,
+    marginBottom: 18,
   },
   profile_pic: {
     backgroundColor: 'gray',
