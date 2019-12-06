@@ -100,17 +100,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     marginTop: Constants.statusBarHeight,
-    marginBottom: '20%',
-  },
-  pic_container: {
-    // marginBottom: '35%',
   },
   group_list_header: {
     fontSize: 24,
-    textAlign: 'left',
-    alignItems: 'flex-start',
-    justifyContent: 'flex-start',
-    marginTop: 50,
+    marginTop: 70,
     marginBottom: 25,
   },
   group_list: {
