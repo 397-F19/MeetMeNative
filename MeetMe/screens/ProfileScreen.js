@@ -8,7 +8,10 @@ import {
   Text,
   TouchableOpacity,
   View,
+  FlatList,
+  Button,
 } from 'react-native';
+import Constants from 'expo-constants';
 import {Agenda} from 'react-native-calendars';
 
 import { MonoText } from '../components/StyledText';
@@ -24,11 +27,16 @@ export default class ProfileScreen extends React.Component {
   render(){
     return (
       <View style={styles.container}>
-        <Image source={require('../assets/images/face.png')} style={styles.profile_pic}>
-        </Image>
-        <Text style={styles.nameText}>
-          Danyil Pysmak
-        </Text>
+        <View style={styles.pic_container}>
+          <Image source={require('../assets/images/face.png')} style={styles.profile_pic}>
+          </Image>
+          <Text style={styles.nameText}>
+            Danyil Pysmak
+          </Text>
+        </View>
+        <View style={styles.group_list}>
+          <Button title="+ Add New Group"/>
+        </View>
       </View>
     );
   }
@@ -79,15 +87,20 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: '35%',
+    marginTop: Constants.statusBarHeight,
+  },
+  pic_container: {
+    // marginBottom: '35%',
+  },
+  group_list: {
+    marginTop: '10%',
   },
   profile_pic: {
     backgroundColor: 'gray',
-    // backgroundImage: url('../assets/IMG_2760.JPG'),
     height: 200,
     width: 200,
     borderRadius: 100,
-    marginBottom: '10%',
+    marginBottom: 30,
   },
   nameText: {
     fontSize: 30,
