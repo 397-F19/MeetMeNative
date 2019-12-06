@@ -1,37 +1,87 @@
+
+
 import * as WebBrowser from 'expo-web-browser';
 import React from 'react';
 import {
-  Image,
   Platform,
-  ScrollView,
   StyleSheet,
   Text,
-  TouchableOpacity,
+  Button,
   View,
+  Alert
 } from 'react-native';
 import {Agenda} from 'react-native-calendars';
 
 import { MonoText } from '../components/StyledText';
 
-export default class ProfileScreen extends React.Component {
+export default class LinksScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       items: {}
     };
   }
-
   render(){
     return (
       <View style={styles.container}>
-        <View style={styles.profile_pic}></View>
+        <Agenda
+          items={this.state.items}
+          loadItemsForMonth={this.loadItems.bind(this)}
+          selected={'2019-11-20'}
+          renderItem={this.renderItem.bind(this)}
+          renderEmptyDate={this.renderEmptyDate.bind(this)}
+          rowHasChanged={this.rowHasChanged.bind(this)}
+        />
+        <Button
+          title="Create Event"
+          onPress={() => Alert.alert('Now you can create an event, with a friend, who totally doesnt want to see you!')}
+        />
       </View>
     );
   }
+  loadItems(day) {
+    setTimeout(() => {
+      for (let i = -15; i < 85; i++) {
+        const time = day.timestamp + i * 24 * 60 * 60 * 1000;
+        const strTime = this.timeToString(time);
+        if (!this.state.items[strTime]) {
+          this.state.items[strTime] = []; 
+        }
+      }
+      //console.log(this.state.items);
+      const newItems = {};
+      Object.keys(this.state.items).forEach(key => { newItems[key] = this.state.items[key]; });
+      this.setState({
+        items: newItems
+      });
+    }, 1000);
+    // console.log(`Load Items for ${day.year}-${day.month}`);
+  }
+
+  renderItem(item) {
+    return (
+      <View style={[styles.item, { height: item.height }]}><Text>{item.name}</Text></View>
+    );
+  }
+
+  renderEmptyDate() {
+    return (
+      <View style={styles.emptyDate}><Text>This is empty date!</Text></View>
+    );
+  }
+
+  rowHasChanged(r1, r2) {
+    return r1.name !== r2.name;
+  }
+
+  timeToString(time) {
+    const date = new Date(time);
+    return date.toISOString().split('T')[0];
+  }
 }
 
-ProfileScreen.navigationOptions = {
-  header: null,
+LinksScreen.navigationOptions = {
+  title: 'Links',
 };
 
 function DevelopmentModeNotice() {
@@ -56,6 +106,16 @@ function DevelopmentModeNotice() {
     );
   }
 }
+function addEvent(){
+  //Launch modal.
+  //fill in Title, Date, People, Description, Location, Start Time, End Time in modal and return an item with these. 
+  item = createEvent()
+  // this.setState({
+  //   items: item
+  // });
+}
+
+function createEvent(){}
 
 function handleLearnMorePress() {
   WebBrowser.openBrowserAsync(
@@ -73,16 +133,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
-  profile_pic: {
-    backgroundColor: 'gray',
-    height: '10%',
-    width: '10%',
-    marginTop: '10%',
-    marginBottom: '95%',
-    borderRadius: 30,
   },
   developmentModeText: {
     marginBottom: 20,
@@ -180,3 +230,18 @@ const styles = StyleSheet.create({
     paddingTop: 30
   }
 });
+//useful extra def for agenda
+        // markingType={'period'}
+        // markedDates={{
+        //    '2017-05-08': {textColor: '#666'},
+        //    '2017-05-09': {textColor: '#666'},
+        //    '2017-05-14': {startingDay: true, endingDay: true, color: 'blue'},
+        //    '2017-05-21': {startingDay: true, color: 'blue'},
+        //    '2017-05-22': {endingDay: true, color: 'gray'},
+        //    '2017-05-24': {startingDay: true, color: 'gray'},
+        //    '2017-05-25': {color: 'gray'},
+        //    '2017-05-26': {endingDay: true, color: 'gray'}}}
+        // monthFormat={'yyyy'}
+        // theme={{calendarBackground: 'red', agendaKnobColor: 'green'}}
+        //renderDay={(day, item) => (<Text>{day ? day.day: 'item'}</Text>)}
+        
